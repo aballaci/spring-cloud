@@ -1,5 +1,7 @@
 package de.ballaci.springdatacollege.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +47,14 @@ public class Employee {
             joinColumns=@JoinColumn(name="EMP_NO")
     )
     private List<Title> titles;
+
+    @ManyToMany
+    @JoinTable(
+            name = "DEPT_EMP",
+            joinColumns = @JoinColumn(name = "EMP_NO"),
+            inverseJoinColumns = @JoinColumn(name = "DEPT_NO"))
+    @JsonManagedReference
+    private List<Department> departments;
 
     public long getEmployeeNumber() {
         return employeeNumber;
@@ -108,5 +118,13 @@ public class Employee {
 
     public void setTitles(List<Title> titles) {
         this.titles = titles;
+    }
+
+    public List<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(List<Department> departments) {
+        this.departments = departments;
     }
 }

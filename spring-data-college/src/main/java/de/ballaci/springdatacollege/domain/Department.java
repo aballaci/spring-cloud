@@ -1,5 +1,7 @@
 package de.ballaci.springdatacollege.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +18,10 @@ public class Department {
     @Column(name="DEPT_NAME")
     private String departmentName;
 
+    @ManyToMany(mappedBy = "departments")
+    @JsonBackReference
+    private List<Employee> employees;
+
     public String getDepartmentNumber() {
         return departmentNumber;
     }
@@ -30,5 +36,13 @@ public class Department {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }
