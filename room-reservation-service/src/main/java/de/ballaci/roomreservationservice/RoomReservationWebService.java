@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,14 +35,8 @@ public class RoomReservationWebService {
     public List<RoomReservation> getRoomReservations(@RequestParam(name = "date", required = false)String dateString){
         Date date = createDateFromDateString(dateString);
         List<Room> rooms = this.roomClient.getAllRooms();
-        Map<Long, RoomReservation> roomReservations = new HashMap<>();
-        rooms.forEach(room->{
-            RoomReservation roomReservation = new RoomReservation();
-            roomReservation.setRoomId(room.getId());
-            roomReservation.setRoomName(room.getName());
-            roomReservation.setRoomNumber(room.getRoomNumber());
-            roomReservations.put(room.getId(), roomReservation);
-        });
+        Map<Long, RoomReservation> roomReservations = rooms.stream()
+                .collect(Collectors.toMap(r -> r.getId(), r -> this.createReservation(r) ));
         List<Reservation> reservations = this.reservationClient.getAllReservations(new java.sql.Date(date.getTime()));
         reservations.forEach(reservation -> {
             RoomReservation roomReservation = roomReservations.get(reservation.getRoomId());
@@ -53,6 +48,14 @@ public class RoomReservationWebService {
         });
 
         return new ArrayList<>(roomReservations.values());
+    }
+
+    private RoomReservation createReservation(Room room){
+            RoomReservation roomReservation = new RoomReservation();
+            roomReservation.setRoomId(room.getId());
+            roomReservation.setRoomName(room.getName());
+            roomReservation.setRoomNumber(room.getRoomNumber());
+        return roomReservation;
     }
 
 
