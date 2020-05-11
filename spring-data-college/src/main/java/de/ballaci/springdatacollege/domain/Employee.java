@@ -6,45 +6,49 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Armand.Ballaci
+ */
+
 @Entity
 @Table(name = "Employees")
 public class Employee {
 
     @Id
-    @Column(name="EMP_NO")
+    @Column(name = "EMP_NO")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long employeeNumber;
 
-    @Column(name="BIRTH_DATE")
+    @Column(name = "BIRTH_DATE")
     @Temporal(TemporalType.DATE)
     private Date birthDate;
 
-    @Column(name="FIRST_NAME")
+    @Column(name = "FIRST_NAME")
     private String firstName;
 
-    @Column(name="LAST_NAME")
+    @Column(name = "LAST_NAME")
     private String lastName;
 
-    @Column(name="GENDER")
+    @Column(name = "GENDER")
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
 
-    @Column(name="HIRE_DATE")
+    @Column(name = "HIRE_DATE")
     @Temporal(TemporalType.DATE)
     private Date hireDate;
 
     @ElementCollection
     @CollectionTable(
-            name="SALARIES",
-            joinColumns=@JoinColumn(name="EMP_NO")
+            name = "SALARIES",
+            joinColumns = @JoinColumn(name = "EMP_NO")
     )
     private List<Salary> salaries;
 
     @ElementCollection
     @CollectionTable(
-            name="TITLES",
-            joinColumns=@JoinColumn(name="EMP_NO")
+            name = "TITLES",
+            joinColumns = @JoinColumn(name = "EMP_NO")
     )
     private List<Title> titles;
 

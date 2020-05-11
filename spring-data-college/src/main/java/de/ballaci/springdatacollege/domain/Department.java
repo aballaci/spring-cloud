@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Armand.Ballaci
+ */
 @Entity
 @Table(name = "DEPARTMENTS")
 public class Department {

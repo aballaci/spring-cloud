@@ -7,17 +7,21 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
 
+/**
+ * @author Armand.Ballaci
+ */
+
 @Embeddable
 public class Title {
 
-    @Column(name="TITLE")
+    @Column(name = "TITLE")
     private String title;
 
-    @Column(name="FROM_DATE")
+    @Column(name = "FROM_DATE")
     @Temporal(TemporalType.DATE)
     private Date fromDate;
 
-    @Column(name="TO_DATE")
+    @Column(name = "TO_DATE")
     @Temporal(TemporalType.DATE)
     private Date toDate;
 

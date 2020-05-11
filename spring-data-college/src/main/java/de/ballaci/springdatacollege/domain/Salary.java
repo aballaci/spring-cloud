@@ -4,17 +4,21 @@ package de.ballaci.springdatacollege.domain;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * @author Armand.Ballaci
+ */
+
 @Embeddable
 public class Salary {
 
-    @Column(name="SALARY")
+    @Column(name = "SALARY")
     private int salary;
 
-    @Column(name="FROM_DATE")
+    @Column(name = "FROM_DATE")
     @Temporal(TemporalType.DATE)
     private Date fromDate;
 
-    @Column(name="TO_DATE")
+    @Column(name = "TO_DATE")
     @Temporal(TemporalType.DATE)
     private Date toDate;
 
